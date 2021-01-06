@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import *
 import sys
 
-WINDOWWIDTH = 400 # Chiều dài cửa sổ
-WINDOWHEIGHT = 300 # Chiều cao cửa sổ
+WINDOWWIDTH = 800 # Chiều dài cửa sổ
+WINDOWHEIGHT = 600 # Chiều cao cửa sổ
 
 WHITE = (255, 255, 255)
 RED   = (255,   0,   0)
@@ -18,22 +18,87 @@ fpsClock = pygame.time.Clock()
 DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 pygame.display.set_caption('Ninja piu piu')
 
+# self.surface = pygame.image.load('./data/img1/NINJA03GIF-0000.png')
+paht_img = './data/img1/'
+
+char = pygame.image.load(paht_img + 'NINJA03GIF-0000.png')
+
+walkRight = [
+    pygame.image.load(paht_img + 'NINJA03GIF-0007.png'),
+    pygame.image.load(paht_img + 'NINJA03GIF-0008.png'),
+    pygame.image.load(paht_img + 'NINJA03GIF-0009.png'),
+    pygame.image.load(paht_img + 'NINJA03GIF-0010.png'),
+    pygame.image.load(paht_img + 'NINJA03GIF-0011.png'), 
+    pygame.image.load(paht_img + 'NINJA03GIF-0012.png'),
+    pygame.image.load(paht_img + 'NINJA03GIF-0013.png'),
+    pygame.image.load(paht_img + 'NINJA03GIF-0014.png'), 
+    pygame.image.load(paht_img + 'NINJA03GIF-0015.png'),
+    pygame.image.load(paht_img + 'NINJA03GIF-0016.png')
+]
+
+walkLeft = [
+    pygame.image.load(paht_img + '0007.png'),
+    pygame.image.load(paht_img + '0008.png'),
+    pygame.image.load(paht_img + '0009.png'),
+    pygame.image.load(paht_img + '0010.png'),
+    pygame.image.load(paht_img + '0011.png'), 
+    pygame.image.load(paht_img + '0012.png'),
+    pygame.image.load(paht_img + '0013.png'),
+    pygame.image.load(paht_img + '0014.png'), 
+    pygame.image.load(paht_img + '0015.png'),
+    pygame.image.load(paht_img + '0016.png')
+]
+
+jump = [
+    pygame.image.load(paht_img + '0031.png'),
+    pygame.image.load(paht_img + '0032.png'),
+    pygame.image.load(paht_img + '0039.png'),
+    pygame.image.load(paht_img + '0040.png'),
+    pygame.image.load(paht_img + '0047.png'), 
+    pygame.image.load(paht_img + '0048.png'),
+]
+
 class Ninja():
     def __init__(self):
         self.x = 0 # Vị trí 
-        self.y = 210
+        self.y = 400
         self.moveLeft = False
         self.moveRight = False
         self.moveUp = False
         self.moveDown = False
         self.moveJump = False
-        self.jumpCount = 6
-
+        self.jumpCount = 10
+        self.walkCount = 0
+        self.standing = True
         ## Tạo surface và thêm hình vào ##
-        self.surface = pygame.image.load('./data/img/ninja2.png')
+        # 7 - 16 đi
+        # 23 chem
+        #  29 phi tieu
+        # 54 nhay
+        # 61 ngã
+        # self.surface = pygame.image.load(paht_img + 'NINJA03GIF-0007.png')
     
     def draw(self): # Hàm dùng để vẽ
-        DISPLAYSURF.blit(self.surface, (self.x, self.y))
+        if self.walkCount + 1 >= 27:
+            self.walkCount = 0
+        
+        if not (self.standing):
+            if self.moveLeft:
+                DISPLAYSURF.blit(walkLeft[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1
+            elif self.moveRight:
+                DISPLAYSURF.blit(walkRight[self.walkCount // 3], (self.x, self.y))
+                self.walkCount += 1
+            elif self.moveJump:
+                print(self.walkCount)
+                DISPLAYSURF.blit(jump[self.walkCount // 5], (self.x, self.y))
+                self.walkCount += 1
+        else:
+            if self.moveLeft:
+                DISPLAYSURF.blit(walkLeft[0], (self.x, self.y))
+            if self.moveRight:
+                DISPLAYSURF.blit(walkRight[0], (self.x, self.y))
+        # DISPLAYSURF.blit(self.surface, (self.x, self.y))
 
     def update(self): # Hàm dùng để thay đổi vị trí
 
@@ -43,29 +108,35 @@ class Ninja():
             self.x += 2
 
         if not self.moveJump:
-            if self.moveUp:
-                self.y -= 2
+            # if self.moveUp:
+            #     self.y -= 2
             if self.moveDown:
                 self.y += 2
         else:
-            if self.jumpCount >= - 6:
+            if self.jumpCount >= - 10:
                 self.y -= (self.jumpCount * abs(self.jumpCount)) * 0.5
                 self.jumpCount -= 1
             else: 
-                self.jumpCount = 6
+                self.jumpCount = 10
                 self.moveJump = False
                         
-        if self.x + 50 > WINDOWWIDTH:
-            self.x = WINDOWWIDTH - 50
+        if self.x + 100 > WINDOWWIDTH:
+            self.x = WINDOWWIDTH - 100
         if self.x < 0:
             self.x = 0
         
-        if self.y + 50 > WINDOWHEIGHT:
-            self.y = WINDOWHEIGHT - 50
+        if self.y + 100 > WINDOWHEIGHT:
+            self.y = WINDOWHEIGHT - 100
         if self.y < 0:
             self.y = 0
 
-Ninja = Ninja()
+ninja = Ninja()
+
+def redrawGameWindow():
+    ninja.draw()
+    ninja.update()
+
+    pygame.display.update()
 
 while True:
     pygame.time.delay(50)
@@ -77,30 +148,36 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                Ninja.moveLeft = True
+                ninja.moveLeft = True
+                ninja.standing = False
             if event.key == pygame.K_RIGHT:
-                Ninja.moveRight = True
-            if event.key == pygame.K_UP:
-                Ninja.moveUp = True
+                ninja.moveRight = True
+                ninja.standing = False
+            # if event.key == pygame.K_UP:
+            #     ninja.moveUp = True
             if event.key == pygame.K_DOWN:
-                Ninja.moveDown = True
+                ninja.standing = False
+                ninja.moveDown = True
             if event.key == pygame.K_SPACE:
-                Ninja.moveJump = True
+                ninja.standing = False
+                ninja.moveJump = True
             
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                Ninja.moveLeft = False
+                ninja.standing = True
+                ninja.moveLeft = False
             if event.key == pygame.K_RIGHT:
-                Ninja.moveRight = False  
-            if event.key == pygame.K_UP:
-                Ninja.moveUp = False
+                ninja.standing = True
+                ninja.moveRight = False  
+            # if event.key == pygame.K_UP:
+            #     ninja.moveUp = False
             if event.key == pygame.K_DOWN:
-                Ninja.moveDown = False 
+                ninja.standing = True
+                ninja.moveDown = False 
             
     DISPLAYSURF.fill(WHITE)
     
-    Ninja.draw()
-    Ninja.update()
+    redrawGameWindow()
 
-    pygame.display.update()
     fpsClock.tick(FPS)
+
