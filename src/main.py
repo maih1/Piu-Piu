@@ -263,7 +263,7 @@ def update(keys, bullets):
             ninja.jumpCount = 10
 
 ninja = Ninja(0, 400, 64, 64)
-enemy = Enemy(0, 400, 64, 64, 700)
+enemy = Enemy(0, 415, 64, 64, 700)
 bullets = []
 
 run = True
