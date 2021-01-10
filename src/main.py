@@ -11,11 +11,11 @@ run = True
 while run:
     # fpsClock.tick(FPS)
     pygame.time.delay(50)
-
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-    
+
     updateBg()
 
 pygame.quit()
