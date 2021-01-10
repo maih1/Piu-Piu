@@ -33,12 +33,12 @@ def drawWindow():
     pygame.display.update()
 
 
-imgSetting = pygame.image.load("data\images\settings (2).png")
+imgSetting = pygame.image.load("data\images\settings.png")
 def setting():
     gameDisplay.blit(imgSetting, (display_width * 0.85, display_height * 0.85))  # vẽ hình setting lên screen
 
 
-imgVolume = pygame.image.load(r"data\images\volume.png")
+imgVolume = pygame.image.load(r'data\images\olume.png')
 def volume():
 
     gameDisplay.blit(imgVolume, (display_width * 0.85, display_height * 0.7))
@@ -153,13 +153,13 @@ def game_loop():
             bgX2 = bg.get_width()
 
         # tắt game
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # bắt sự kiện
-                gameExit = True
-                pygame.quit()
-                quit()
-            if event.type == USEREVENT +1:
-                speed += 1
+        # for event in pygame.event.get():
+        #     if event.type == pygame.QUIT:  # bắt sự kiện
+        #         gameExit = True
+        #         pygame.quit()
+        #         quit()
+            # if event.type == USEREVENT +1:
+            #     speed += 1
             #di chuyển sự kiện 
             # if event.type == pygame.KEYDOWN:
             #     if event.key == pygame.K_LEFT:
@@ -190,9 +190,9 @@ def game_loop():
 
         # pygame.display.update()
         
-        clock.tick(speed)
+        # clock.tick(speed)
         
 
 game_intro()
-game_loop()
+# game_loop()
 pygame.quit()
