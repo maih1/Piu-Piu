@@ -57,8 +57,20 @@ def update(keys, bullets):
     global shootLoop, score
 
     if enemy.visible == True:
-        if ninja.hitbox[1] < enemy.hitbox[1] + enemy.hitbox[3] and ninja.hitbox[1] + ninja.hitbox[3] > enemy.hitbox[1]:
-            if ninja.hitbox[0] + ninja.hitbox[2] > enemy.hitbox[0] and ninja.hitbox[0] < enemy.hitbox[0] + enemy.hitbox[2]:
+        if ((ninja.hitbox2[1] < enemy.hitbox[1] + enemy.hitbox[3] and ninja.hitbox2[1] + ninja.hitbox2[3] >  enemy.hitbox[1])
+            or 
+            (ninja.hitbox3[1] < enemy.hitbox[1] + enemy.hitbox[3] and ninja.hitbox3[1] + ninja.hitbox3[3] >  enemy.hitbox[1])
+        ):
+            if ((ninja.hitbox2[0] + ninja.hitbox2[2] > enemy.hitbox[0] and ninja.hitbox2[0]< enemy.hitbox[0] + enemy.hitbox[2])
+                or 
+                (ninja.hitbox3[0] + ninja.hitbox3[2] > enemy.hitbox[0] and ninja.hitbox3[0]< enemy.hitbox[0] + enemy.hitbox[2])
+            ):
+                hitSound.play()
+                enemy.hit()
+                score += 1
+
+        if ninja.hitbox1[1] < enemy.hitbox[1] + enemy.hitbox[3] and ninja.hitbox1[1] + ninja.hitbox1[3] > enemy.hitbox[1]:
+            if ninja.hitbox1[0] + ninja.hitbox1[2] > enemy.hitbox[0] and ninja.hitbox1[0] < enemy.hitbox[0] + enemy.hitbox[2]:
                 ninja.hit()
                 score -= 5
 

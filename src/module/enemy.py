@@ -35,7 +35,7 @@ class Enemy ():
             pygame.draw.rect(DISPLAYSURF, RED, (self.hitbox[0] + 20, self.hitbox[1] - 20, 50, 10))
             pygame.draw.rect(DISPLAYSURF, GREEN2, (self.hitbox[0] + 20, self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10))
             self.hitbox = (self.x + 1.5, self.y + 12, 90, 57) #  12 57
-            # pygame.draw.rect(DISPLAYSURF, (255,0,0), self.hitbox,2)
+            pygame.draw.rect(DISPLAYSURF, (255,0,0), self.hitbox,2)
 
     def move(self):
         if self.value > 0:
