@@ -44,7 +44,6 @@ paht_img1 = './data/img/'
 path_imgEnemy1 = './data/imgEnemy/enemy1/'
 path_imgEnemy2 = './data/imgEnemy/enemy2/'
 
-backgroud = pygame.image.load(paht_img + 'bg.png')
 char = pygame.image.load(paht_img + 'NINJA03GIF-0000.png')
 
 walkRight = [
@@ -81,6 +80,8 @@ jump = [
     pygame.image.load(paht_img + 'NINJA03GIF-0047.png'), 
     pygame.image.load(paht_img + 'NINJA03GIF-0048.png'),
 ]
+
+slide = pygame.image.load(paht_img + 'slide.png')
 
 props = [
     pygame.image.load(paht_img + 'NINJA03GIF-0024.png'),

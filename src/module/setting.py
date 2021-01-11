@@ -9,8 +9,8 @@ from enemy import *
 from projectile import *
 from bg import *
 
-ninja = Ninja(0, 400, 100, 100)
-enemy = Enemy(100, 415, 90, 76, 700)
+ninja = Ninja(0, 410, 100, 100)
+enemy = Enemy(100, 425, 90, 76, 700)
 
 def bull(bullets):
     global score
@@ -74,7 +74,7 @@ def update(keys, bullets):
                 ninja.hit()
                 ninja.hitbox2 = (0, 0, 0, 0)
                 ninja.hitbox3 = (0, 0, 0, 0)
-                score -= 5
+                # score -= 5
 
     if shootLoop > 0:
         shootLoop += 1
@@ -82,7 +82,7 @@ def update(keys, bullets):
         shootLoop = 0
 
     if keys[pygame.K_SPACE] and shootLoop == 0:
-        jumpSound.play()
+        bulletSound.play()
 
         ninja.isProp = True
         ninja.standing = False
@@ -114,6 +114,7 @@ def update(keys, bullets):
         ninja.isProp = False
         ninja.standing = False
     elif keys[pygame.K_UP]:
+        jumpSound.play()
         ninja.standing = False
     else:
         ninja.standing = True
