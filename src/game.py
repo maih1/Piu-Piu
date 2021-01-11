@@ -7,18 +7,17 @@ from enemy import *
 from projectile import *
 from bg import *
 from setting import *
-
-bullets = []
+import random
 
 def game():
-    global bgX,bgX2
+    global bgX,bgX2, obstacles, ninja
     gameExit = False
 
     # vòng lặp game
     speed = 30
 
     while not gameExit:
-        redrawGameWindow(bullets, bgX, bgX2)
+        redrawGameWindow(bgX, bgX2)
         #di chuyển nền cuộn 
 
         bgX -= 2
@@ -36,15 +35,28 @@ def game():
                 gameExit = True
                 pygame.quit()
                 quit()
-            if event.type == USEREVENT +1:
+            
+            if event.type == USEREVENT + 1:
                 speed += 1
-        
+            
+            if len(obstacles) == 0:
+                obstacles.append(Enemy1(500, 425, 90, 76, 700))
 
-        bull(bullets)
+            if event.type == USEREVENT + 2:
+                ran = random.randrange(0,3)
+
+                if ran == 0:
+                    obstacles.append(Enemy1(500, 425, 90, 76, 700))
+                elif ran == 1:
+                    obstacles.append(Enemy2(20, 425, 90, 76, 700))
+                elif ran == 2:
+                    obstacles.append(Enemy3(600, 425, 90, 76, 700))        
+
+        bull()
 
         keys = pygame.key.get_pressed()
 
-        update(keys, bullets)
+        update(keys)
         # scores(score)
         fpsClock.tick(speed)
 
@@ -59,9 +71,9 @@ def updateBg():
     drawVolume()
 
     #button
-    game_button("Start",321,300,150,83,GOLD,ORANGE, game, )
 
     image_button("data\images\volume.png",680,420,64,64)
+    game_button("Start",321,300,150,83,GOLD,ORANGE, game, )
 
     pygame.display.update()
 
