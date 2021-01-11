@@ -7,58 +7,6 @@ from enemy import *
 from projectile import *
 from bg import *
 from setting import *
-import random
-
-def game():
-    global bgX,bgX2, obstacles, ninja
-    gameExit = False
-
-    # vòng lặp game
-    speed = 30
-
-    while not gameExit:
-        redrawGameWindow(bgX, bgX2)
-        #di chuyển nền cuộn 
-
-        bgX -= 2
-        bgX2 -= 2
-        
-        if bgX < bg.get_width() * -1:
-            bgX = bg.get_width()
-        
-        if bgX2 < bg.get_width() * -1:
-            bgX2 = bg.get_width()
-
-        # tắt game
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # bắt sự kiện
-                gameExit = True
-                pygame.quit()
-                quit()
-            
-            if event.type == USEREVENT + 1:
-                speed += 1
-            
-            if len(obstacles) == 0:
-                obstacles.append(Enemy1(500, 425, 90, 76, 700))
-
-            if event.type == USEREVENT + 2:
-                ran = random.randrange(0,3)
-
-                if ran == 0:
-                    obstacles.append(Enemy1(500, 425, 90, 76, 700))
-                elif ran == 1:
-                    obstacles.append(Enemy2(20, 425, 90, 76, 700))
-                elif ran == 2:
-                    obstacles.append(Enemy3(600, 425, 90, 76, 700))        
-
-        bull()
-
-        keys = pygame.key.get_pressed()
-
-        update(keys)
-        # scores(score)
-        fpsClock.tick(speed)
 
 def updateBg():
 

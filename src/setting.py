@@ -1,4 +1,5 @@
 import sys
+import random
 import pygame 
 from pygame.locals import *
 from path import *
@@ -11,33 +12,116 @@ ninja = Ninja(0, 410, 100, 100)
 bullets = []
 obstacles = []
 
-def endGame():
-    global score
+def game():
+    global bgX,bgX2, obstacles
+    gameExit = False
 
-    obstacles = []
+    # vòng lặp game
+    speed = 30
 
-    runs = True
-    while runs:
+    while not gameExit:
+        print(ninja.visible)
+
+        if not ninja.visible:
+            obstacles.clear()
+            endGame()
+
+        
+        #di chuyển nền cuộn 
+        bgX -= 2
+        bgX2 -= 2
+        
+        if bgX < bg.get_width() * -1:
+            bgX = bg.get_width()
+        
+        if bgX2 < bg.get_width() * -1:
+            bgX2 = bg.get_width()
+
+        # tắt game
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # bắt sự kiện
+                gameExit = True
+                pygame.quit()
+                quit()
+            
+            if event.type == USEREVENT + 1:
+                speed += 1
+            
+            if len(obstacles) == 0:
+                obstacles.append(Enemy1(500, 425, 90, 76, 700))
+
+            if event.type == USEREVENT + 2:
+                ran = random.randrange(0,3)
+
+                if ran == 0:
+                    obstacles.append(Enemy1(500, 425, 90, 76, 700))
+                elif ran == 1:
+                    obstacles.append(Enemy2(20, 425, 90, 76, 700))
+                elif ran == 2:
+                    obstacles.append(Enemy3(600, 425, 90, 76, 700))        
+
+        bull()
+
+        keys = pygame.key.get_pressed()
+
+        update(keys)
+
+        redrawGameWindow(bgX, bgX2)
+
+        fpsClock.tick(speed)
+
+def endGame():    
+    global score, speed
+
+    speed = 30
+    ninja.visible = True
+    
+    run = True
+
+    while run:
         pygame.time.delay(100)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                runs = False
+                run = False
                 pygame.quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                runs = False
-
+            if event.type == pygame.MOUSEBUTTONDOWN: # if the user hits the mouse button
+                run = False
                 ninja.left = False
                 ninja.right = False
                 ninja.isJump = False
                 ninja.isProp = False
                 ninja.standing = True
+                ninja.health = 20
+                score = 0 
+
+        # DISPLAYSURF.blit(bg, (0,0))    
+        fontScore = pygame.font.SysFont('comicsans', 80, True)
+        textScore = fontScore.render("Score: " + str(score), 1, RED)
         
-        largeFont = pygame.font.SysFont('comicsans', 80, True)
-        currentScore = largeFont.render('Score: '+ str(score),1,RED)
-        DISPLAYSURF.blit(currentScore, (WINDOWWIDTH/2 - currentScore.get_width()/2, 240))
+        fontScoreBest = pygame.font.SysFont('comicsans', 80, True)
+        textScoreBest = fontScoreBest.render("Best Score: " + str(updateFile()), 1, YEALLOW)
+
+        DISPLAYSURF.blit(textScore, (WINDOWWIDTH/2 - textScore.get_width()/2, 240))
+        DISPLAYSURF.blit(textScoreBest, (WINDOWWIDTH/2 - textScoreBest.get_width()/2,150))
+
+        game_button("RERDY",321,300,150,83,GOLD,ORANGE, game, )
+
         pygame.display.update()
-    
-    score = 0
+
+def updateFile():
+    f = open('src/scores.txt','r')
+    file = f.readlines()
+    last = int(file[0])
+
+    if last < int(score): 
+        f.close() 
+        file = open('src/scores.txt', 'w')
+        file.write(str(score))
+        file.close() 
+
+        return score
+               
+    return last
 
 def bull():
     global score
@@ -168,5 +252,5 @@ def update(keys):
             ninja.isJump = False
             ninja.jumpCount = 10
     
-    if ninja.visible == False:
-            endGame()
+    # if ninja.visible == False:
+    #         endGame()

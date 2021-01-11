@@ -83,7 +83,7 @@ class Ninja():
             self.walkCount = 0
 
             i = 0
-            
+            # print(self.health)
             while i < 21:
                 # pygame.time.delay(5)
 
