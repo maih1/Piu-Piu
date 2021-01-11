@@ -1,6 +1,4 @@
 import sys
-sys.path.append('d:/python/Piu-Piu/src/module/')
-
 import pygame 
 from pygame.locals import *
 from path import *
