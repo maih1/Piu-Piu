@@ -22,6 +22,10 @@ class Ninja():
 
         self.standing = True
 
+        self.hitbox = (self.x + 19, self.y + 28, 70, 50)
+        self.health = 20
+        self.visible = True
+
     def draw(self):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
@@ -43,3 +47,31 @@ class Ninja():
                 DISPLAYSURF.blit(walkRight[0], (self.x, self.y))
             else:
                 DISPLAYSURF.blit(jump[0], (self.x, self.y))
+
+        pygame.draw.rect(DISPLAYSURF, RED, (self.x - self.x + 100, self.y - self.y + 10, 100, 20))
+        pygame.draw.rect(DISPLAYSURF, GREEN2, (self.x - self.x + 100, self.y - self.y + 10, 100 - (5 * (20 - self.health)), 20))
+
+        self.hitbox = (self.x + 19, self.y + 28, 70, 50)
+        # pygame.draw.rect(DISPLAYSURF, (255, 0, 0), self.hitbox, 2)
+
+    def hit(self):
+        if self.health > 0:
+            self.health -= 1
+
+            self.isJump = False
+            self.jumpCount = 10
+            self.x = 0
+            self.y = 400
+            self.walkCount = 0
+
+            i = 0
+            
+            while i < 21:
+                pygame.time.delay(5)
+                i += 1
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        i = 201
+                        pygame.quit()
+        else:
+            self.visible = False

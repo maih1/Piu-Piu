@@ -9,21 +9,43 @@ from enemy import *
 from projectile import *
 from bg import *
 
-ninja = Ninja(0, 400, 64, 64)
-enemy = Enemy(0, 415, 64, 64, 700)
+ninja = Ninja(0, 400, 100, 100)
+enemy = Enemy(100, 415, 90, 76, 700)
 
 def bull(bullets):
+    global score
     for bullet in bullets:
+        if enemy.visible:
+            if bullet.hitbox[1] < enemy.hitbox[1] + enemy.hitbox[3] and bullet.hitbox[1] + bullet.hitbox[3] >  enemy.hitbox[1]:
+                if bullet.hitbox[0] + bullet.hitbox[2] > enemy.hitbox[0] and bullet.hitbox[0]< enemy.hitbox[0] + enemy.hitbox[2]:
+                    hitSound.play()
+                    enemy.hit()
+                    score += 1
+                    bullets.pop(bullets.index(bullet))
+
         if bullet.x < 800 and bullet.x > 0:
             bullet.x += bullet.value
         else:
             bullets.pop(bullets.index(bullet))
 
-def redrawGameWindow(bullets):
+def scores():
+    fontScore = pygame.font.SysFont('comicsans', 30, True)
+    textScore = fontScore.render("Score: " + str(score), 1, BLACK)
     
-    drawWindow()
+    fontHealth = pygame.font.SysFont('comicsans', 30, True)
+    textHealth = fontHealth.render("Health: ", 1, RED)
+
+    DISPLAYSURF.blit(textScore, (600, 10))
+    DISPLAYSURF.blit(textHealth, (0, 10))
+
+    pygame.display.update()
+
+def redrawGameWindow(bullets, bgX, bgX2):    
+    drawWindow(bgX, bgX2)
+    
     ninja.draw()
     enemy.draw()
+    scores()
     
     for bullet in bullets:
         bullet.draw()
@@ -32,7 +54,22 @@ def redrawGameWindow(bullets):
 
 def update(keys, bullets):
 
-    if keys[pygame.K_SPACE]:
+    global shootLoop, score
+
+    if enemy.visible == True:
+        if ninja.hitbox[1] < enemy.hitbox[1] + enemy.hitbox[3] and ninja.hitbox[1] + ninja.hitbox[3] > enemy.hitbox[1]:
+            if ninja.hitbox[0] + ninja.hitbox[2] > enemy.hitbox[0] and ninja.hitbox[0] < enemy.hitbox[0] + enemy.hitbox[2]:
+                ninja.hit()
+                score -= 5
+
+    if shootLoop > 0:
+        shootLoop += 1
+    if shootLoop > 10:
+        shootLoop = 0
+
+    if keys[pygame.K_SPACE] and shootLoop == 0:
+        jumpSound.play()
+
         ninja.isProp = True
         ninja.standing = False
 
@@ -41,13 +78,15 @@ def update(keys, bullets):
         else:
             facing = 1
         
-        if len(bullets) < 100:
+        if len(bullets) < 20:
             bullets.append(projectile(
                 round(ninja.x + 50), 
                 round(ninja.y + 50),
                 facing
-            ))        
+            )) 
 
+        shootLoop = 1 
+    
     if keys[pygame.K_LEFT] and ninja.x > ninja.value:
         ninja.x -= ninja.value
         ninja.left = True

@@ -9,8 +9,10 @@ WINDOWWIDTH = 800 # Chiều dài cửa sổ
 WINDOWHEIGHT = 600 # Chiều cao cửa sổ
 
 WHITE  = (255, 255, 255)
+BLACK  = (  0,   0,   0 )
 RED    = (255,   0,   0)
 GREEN  = (  0, 255,   0)
+GREEN2 = (  0, 128,   0)
 ORANGE = (255, 165,   0)
 GOLD   = (255, 215,   0)
 BROWN  = (139,  69,  19)
@@ -20,11 +22,18 @@ UNMELLOWYELLOW = (255, 255, 102)
 FPS = 60
 fpsClock = pygame.time.Clock()
 
+shootLoop = 0
+score = 0
+
 DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
 pygame.display.set_caption('Ninja piu piu')
 
+bulletSound = pygame.mixer.Sound('data/sounds/prop.wav')
+hitSound = pygame.mixer.Sound('data/sounds/hit.wav')
+jumpSound = pygame.mixer.Sound('data/sounds/jump.wav')
+
 pygame.mixer.music.load("data/sounds/intro_Theme.wav")
-pygame.mixer.music.play()
+pygame.mixer.music.play(-1)
 
 bg = pygame.image.load("data/images/bg.png")
 bgX = 0
@@ -91,7 +100,6 @@ walkRightEnemy = [
     pygame.image.load(path_imgEnemy1 + '7r.png'),
     pygame.image.load(path_imgEnemy1 + '8r.png'), 
     pygame.image.load(path_imgEnemy1 + '9r.png'),
-    pygame.image.load(path_imgEnemy1 + '10r.png')
 ]
 
 walkLeftEnemy = [
@@ -104,6 +112,5 @@ walkLeftEnemy = [
     pygame.image.load(path_imgEnemy1 + '7.png'),
     pygame.image.load(path_imgEnemy1 + '8.png'), 
     pygame.image.load(path_imgEnemy1 + '9.png'),
-    pygame.image.load(path_imgEnemy1 + '10.png')
 ]
 

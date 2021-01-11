@@ -8,7 +8,7 @@ from projectile import *
 
 # draw backgroud
 
-def drawWindow():
+def drawWindow(bgX, bgX2):
     DISPLAYSURF.blit(bg,(bgX,0))
     DISPLAYSURF.blit(bg,(bgX2,0))
 

@@ -10,20 +10,20 @@ from setting import *
 
 bullets = []
 
-
 def game():
     global bgX,bgX2
     gameExit = False
 
     # vòng lặp game
     speed = 30
+
     while not gameExit:
-        redrawGameWindow(bullets)
-        
+        redrawGameWindow(bullets, bgX, bgX2)
         #di chuyển nền cuộn 
+
         bgX -= 2
         bgX2 -= 2
-
+        
         if bgX < bg.get_width() * -1:
             bgX = bg.get_width()
         
@@ -45,7 +45,7 @@ def game():
         keys = pygame.key.get_pressed()
 
         update(keys, bullets)
-
+        # scores(score)
         fpsClock.tick(speed)
 
 def updateBg():
@@ -62,7 +62,7 @@ def updateBg():
     game_button("Start",321,300,150,83,GOLD,ORANGE, game, )
 
     image_button("data\images\volume.png",680,420,64,64)
-    
+
     pygame.display.update()
 
     
