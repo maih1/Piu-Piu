@@ -72,6 +72,8 @@ def update(keys, bullets):
         if ninja.hitbox1[1] < enemy.hitbox[1] + enemy.hitbox[3] and ninja.hitbox1[1] + ninja.hitbox1[3] > enemy.hitbox[1]:
             if ninja.hitbox1[0] + ninja.hitbox1[2] > enemy.hitbox[0] and ninja.hitbox1[0] < enemy.hitbox[0] + enemy.hitbox[2]:
                 ninja.hit()
+                ninja.hitbox2 = (0, 0, 0, 0)
+                ninja.hitbox3 = (0, 0, 0, 0)
                 score -= 5
 
     if shootLoop > 0:

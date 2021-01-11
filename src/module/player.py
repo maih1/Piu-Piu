@@ -23,8 +23,8 @@ class Ninja():
         self.standing = True
 
         self.hitbox1 = (self.x + 19, self.y + 28, 70, 50)
-        self.hitbox2 = (self.x + 64, self.y + 35, 29, 30)
-        self.hitbox3 = (self.x + 10, self.y + 35, 25, 30)
+        self.hitbox2 = (0,0,0,0)
+        self.hitbox3 = (0,0,0,0)
         self.health = 20
         self.visible = True
 
@@ -36,11 +36,13 @@ class Ninja():
             if self.left:
                 DISPLAYSURF.blit(walkLeft[self.walkCount // 3], (self.x,self.y))
                 self.hitbox3 = (self.x + 10, self.y + 35, 25, 30)
+                self.hitbox2 = (0, 0, 0, 0)
                 # pygame.draw.rect(DISPLAYSURF, BROWN, self.hitbox3, 2)
                 self.walkCount += 1
             elif self.right:
                 DISPLAYSURF.blit(walkRight[self.walkCount // 3], (self.x,self.y))
                 self.hitbox2 = (self.x + 64, self.y + 35, 29, 30)
+                self.hitbox3 = (0, 0, 0, 0)
                 # pygame.draw.rect(DISPLAYSURF, GREEN2, self.hitbox2, 2)
                 self.walkCount +=1
             elif self.isJump:
@@ -49,11 +51,11 @@ class Ninja():
         else:
             if self.left:
                 DISPLAYSURF.blit(walkLeft[0], (self.x, self.y))
-                self.hitbox3 = (self.x + 10, self.y + 35, 25, 30)
+                # self.hitbox3 = (self.x + 10, self.y + 35, 25, 30)
                 # pygame.draw.rect(DISPLAYSURF, BROWN, self.hitbox3, 2)
             elif self.right:
                 DISPLAYSURF.blit(walkRight[0], (self.x, self.y))
-                self.hitbox2 = (self.x + 64, self.y + 35, 29, 30)
+                # self.hitbox2 = (self.x + 64, self.y + 35, 29, 30)
                 # pygame.draw.rect(DISPLAYSURF, GREEN2, self.hitbox2, 2)
             else:
                 DISPLAYSURF.blit(jump[0], (self.x, self.y))
