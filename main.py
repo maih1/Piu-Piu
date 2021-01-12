@@ -8,7 +8,7 @@ from setting import*
 run = True
 
 while run:
-    # fpsClock.tick(FPS)
+    # fpsClock.tick(FPS)    
     pygame.time.delay(50)
     
     for event in pygame.event.get():
@@ -18,3 +18,5 @@ while run:
     updateBg()
 
 pygame.quit()
+
+# pyinstaller --onefile -w main.py

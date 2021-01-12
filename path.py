@@ -4,14 +4,14 @@ import sys
 
 pygame.init()
 
-
 WINDOWWIDTH = 800 # Chiều dài cửa sổ
 WINDOWHEIGHT = 600 # Chiều cao cửa sổ
 
 WHITE  = (255, 255, 255)
 BLACK  = (  0,   0,   0)
 RED    = (255,   0,   0)
-BLUE   = (  3,   3, 148)
+BLUE   = (  0, 169, 191)
+GREEN  = (11, 181, 56)
 GREEN2 = (  0, 128,   0)
 ORANGE = (255, 165,   0)
 GOLD   = (255, 215,   0)
@@ -34,6 +34,10 @@ pygame.time.set_timer(USEREVENT+2, 10000)
 bulletSound = pygame.mixer.Sound('data/sounds/prop.wav')
 hitSound = pygame.mixer.Sound('data/sounds/hit.wav')
 jumpSound = pygame.mixer.Sound('data/sounds/jump.wav')
+dieSound = pygame.mixer.Sound('data/sounds/die.wav')
+botSound3 = pygame.mixer.Sound('data/sounds/bot3.wav')
+botSound2 = pygame.mixer.Sound('data/sounds/bot2.wav')
+botSound1 = pygame.mixer.Sound('data/sounds/bot1.wav')
 
 pygame.mixer.music.load("data/sounds/mixkit-deep-urban-623.mp3")
 pygame.mixer.music.play(-1)

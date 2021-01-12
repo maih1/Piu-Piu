@@ -20,7 +20,6 @@ def game():
     speed = 30
 
     while not gameExit:
-        print(ninja.visible)
 
         if not ninja.visible:
             obstacles.clear()
@@ -54,16 +53,18 @@ def game():
                 ran = random.randrange(0,3)
 
                 if ran == 0:
-                    obstacles.append(Enemy1(500, 425, 90, 76, 700))
+                    botSound1.play()
+                    obstacles.append(Enemy1(500, 415, 90, 76, 700))
                 elif ran == 1:
-                    obstacles.append(Enemy2(20, 425, 90, 76, 700))
+                    botSound2.play()
+                    obstacles.append(Enemy2(100, 360, 90, 76, 700))
                 elif ran == 2:
+                    botSound3.play()
                     obstacles.append(Enemy3(600, 425, 90, 76, 700))        
 
         bull()
 
         keys = pygame.key.get_pressed()
-
         update(keys)
 
         redrawGameWindow(bgX, bgX2)
@@ -86,6 +87,8 @@ def endGame():
                 pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN: # if the user hits the mouse button
                 run = False
+                ninja.x = 0
+                ninja.y = 410
                 ninja.left = False
                 ninja.right = False
                 ninja.isJump = False
@@ -99,23 +102,23 @@ def endGame():
         textScore = fontScore.render("Score: " + str(score), 1, RED)
         
         fontScoreBest = pygame.font.SysFont('comicsans', 80, True)
-        textScoreBest = fontScoreBest.render("Best Score: " + str(updateFile()), 1, YEALLOW)
+        textScoreBest = fontScoreBest.render("Best Score: " + str(updateFile()), 1, GREEN)
 
         DISPLAYSURF.blit(textScore, (WINDOWWIDTH/2 - textScore.get_width()/2, 240))
         DISPLAYSURF.blit(textScoreBest, (WINDOWWIDTH/2 - textScoreBest.get_width()/2,150))
 
-        game_button("RERDY",321,300,150,83,GOLD,ORANGE, game, )
+        game_button("RERDY",321,300,150,83,GOLD,BLUE, game, )
 
         pygame.display.update()
 
 def updateFile():
-    f = open('src/scores.txt','r')
+    f = open('scores.txt','r')
     file = f.readlines()
     last = int(file[0])
 
     if last < int(score): 
         f.close() 
-        file = open('src/scores.txt', 'w')
+        file = open('scores.txt', 'w')
         file.write(str(score))
         file.close() 
 
@@ -189,10 +192,10 @@ def update(keys):
 
             if ninja.hitbox1[1] < obstacle.hitbox[1] + obstacle.hitbox[3] and ninja.hitbox1[1] + ninja.hitbox1[3] > obstacle.hitbox[1]:
                 if ninja.hitbox1[0] + ninja.hitbox1[2] > obstacle.hitbox[0] and ninja.hitbox1[0] < obstacle.hitbox[0] + obstacle.hitbox[2]:
+                    dieSound.play()
                     ninja.hit()
                     ninja.hitbox2 = (0, 0, 0, 0)
                     ninja.hitbox3 = (0, 0, 0, 0)
-                    # score -= 5
 
     if shootLoop > 0:
         shootLoop += 1
@@ -251,6 +254,3 @@ def update(keys):
         else:
             ninja.isJump = False
             ninja.jumpCount = 10
-    
-    # if ninja.visible == False:
-    #         endGame()

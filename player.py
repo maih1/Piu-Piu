@@ -79,12 +79,11 @@ class Ninja():
             self.isJump = False
             self.jumpCount = 10
             self.x = 0
-            self.y = 400
+            self.y = 410
             self.walkCount = 0
 
             i = 0
-            # print(self.health)
-            while i < 21:
+            while i < 200:
                 # pygame.time.delay(5)
 
                 i += 1
@@ -94,6 +93,3 @@ class Ninja():
                         pygame.quit()
         else:
             self.visible = False
-
-    def die():
-        DISPLAYSURF.blit(die, (self.x, self.y))
