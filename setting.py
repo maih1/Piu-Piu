@@ -156,8 +156,6 @@ def scores():
     DISPLAYSURF.blit(textScore, (600, 10))
     DISPLAYSURF.blit(textHealth, (0, 10))
 
-    pygame.display.update()
-
 def redrawGameWindow(bgX, bgX2):    
     drawWindow(bgX, bgX2)
     
