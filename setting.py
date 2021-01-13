@@ -8,14 +8,11 @@ from enemy import *
 from projectile import *
 from bg import *
 
-ninja = Ninja(0, 410, 100, 100)
+ninja = Ninja(0, 420, 100, 100)
 bullets = []
 obstacles = []
 speed = 30
 
-def howTG():
-    global bg
-    drawWindow(bg)
 def game():
     global bgX,bgX2, obstacles, speed
     gameExit = False
@@ -89,7 +86,7 @@ def endGame():
             if event.type == pygame.MOUSEBUTTONDOWN: # if the user hits the mouse button
                 run = False
                 ninja.x = 0
-                ninja.y = 410
+                ninja.y = 420
                 ninja.left = False
                 ninja.right = False
                 ninja.isJump = False

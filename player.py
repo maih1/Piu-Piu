@@ -79,7 +79,7 @@ class Ninja():
             self.isJump = False
             self.jumpCount = 10
             self.x = 0
-            self.y = 410
+            self.y = 420
             self.walkCount = 0
 
             i = 0
