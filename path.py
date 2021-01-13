@@ -18,6 +18,7 @@ GOLD   = (255, 215,   0)
 BROWN  = (139,  69,  19)
 YEALLOW = (255, 174, 0)
 UNMELLOWYELLOW = (255, 255, 102)
+DARKYELLOW = (248,219,100)
 
 ### Xác định FPS ###
 FPS = 60

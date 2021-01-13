@@ -13,6 +13,9 @@ bullets = []
 obstacles = []
 speed = 30
 
+def howTG():
+    global bg
+    drawWindow(bg)
 def game():
     global bgX,bgX2, obstacles, speed
     gameExit = False
@@ -24,8 +27,8 @@ def game():
             endGame()
 
         #di chuyển nền cuộn 
-        bgX -= 2
-        bgX2 -= 2
+        bgX -= 1.4
+        bgX2 -= 1.4
         
         if bgX < bg.get_width() * -1:
             bgX = bg.get_width()

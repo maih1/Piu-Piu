@@ -13,18 +13,20 @@ def drawWindow(bgX, bgX2):
     DISPLAYSURF.blit(bg,(bgX2,0))
 
 #draw icon setting
+# bghowTG = pygame.image.load("data/images/bg_desert.png")
+# bghowTG = pygame.transform.scale(bghowTG,(WINDOWWIDTH,WINDOWHEIGHT))
 
-def drawSetting():
-    imgSetting = pygame.image.load("data\images\settings.png")
+def drawController():
+    imgController = pygame.image.load("data\images\controller.png")
+    imgController = pygame.transform.scale(imgController,(400,250))
 
-    DISPLAYSURF.blit(imgSetting, (WINDOWWIDTH * 0.85, WINDOWHEIGHT * 0.85))  # vẽ hình setting lên screen
+    DISPLAYSURF.blit(imgController, (WINDOWWIDTH * 0.25, WINDOWHEIGHT /2 ))  # vẽ hình setting lên screen
 
 # draw icon volume
 def drawVolume():
     imgVolume = pygame.image.load("data\images\olume.png")
-
-    DISPLAYSURF.blit(imgVolume, (WINDOWWIDTH * 0.85, WINDOWHEIGHT * 0.7))
-
+    imgVolume = pygame.transform.scale(imgVolume,(80,80))
+    DISPLAYSURF.blit(imgVolume, (WINDOWWIDTH * 0.86, WINDOWHEIGHT * 0.85))
 
 #button là ảnh
 def image_button(img,x,y,c,d):
@@ -50,13 +52,13 @@ def text_obj(text,font,color):
 def message_display(text,color):
     largeText = pygame.font.Font('freesansbold.ttf',100)
     TextSur, TextRect = text_obj(text, largeText,color)
-    TextRect.center = ((WINDOWWIDTH/2),(WINDOWHEIGHT/2))
+    TextRect.center = ((WINDOWWIDTH /2),(WINDOWHEIGHT /2))
     DISPLAYSURF.blit(TextSur, TextRect)
     
     pygame.display.update()
     time.sleep(2)
     # game_intro()
-
+    
 #button cho hình khối
 def game_button(te,x,y,c,d,bef,aft,action = None):
     mouse = pygame.mouse.get_pos()
