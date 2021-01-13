@@ -18,5 +18,3 @@ while run:
     updateBg()
 
 pygame.quit()
-
-# pyinstaller --onefile -w main.py

@@ -11,13 +11,11 @@ from bg import *
 ninja = Ninja(0, 410, 100, 100)
 bullets = []
 obstacles = []
+speed = 30
 
 def game():
-    global bgX,bgX2, obstacles
+    global bgX,bgX2, obstacles, speed
     gameExit = False
-
-    # vòng lặp game
-    speed = 30
 
     while not gameExit:
 
@@ -25,7 +23,6 @@ def game():
             obstacles.clear()
             endGame()
 
-        
         #di chuyển nền cuộn 
         bgX -= 2
         bgX2 -= 2
@@ -85,6 +82,7 @@ def endGame():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
+                quit()
             if event.type == pygame.MOUSEBUTTONDOWN: # if the user hits the mouse button
                 run = False
                 ninja.x = 0
@@ -97,7 +95,7 @@ def endGame():
                 ninja.health = 20
                 score = 0 
 
-        # DISPLAYSURF.blit(bg, (0,0))    
+        DISPLAYSURF.blit(bg, (0,0))    
         fontScore = pygame.font.SysFont('comicsans', 80, True)
         textScore = fontScore.render("Score: " + str(score), 1, RED)
         
