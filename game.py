@@ -21,6 +21,7 @@ def updateBg():
     #button
 
     image_button("data\images\volume.png",680,420,64,64)
+    image_button("data\images\bg_desert.png",680,510,64,64)
     game_button("Start",321,300,150,83,GOLD,ORANGE, game, )
 
     pygame.display.update()
