@@ -9,23 +9,26 @@ from bg import *
 from setting import *
 
 def updateBg():
-
+    
     largeText = pygame.font.Font('freesansbold.ttf',115)
     TextSur, TextRect = text_obj("PIU PIU", largeText,ORANGE)
-    TextRect.center = ((WINDOWWIDTH/2),(WINDOWHEIGHT * 0.3))
+    TextRect.center = ((WINDOWWIDTH/2),(WINDOWHEIGHT * 0.15))
     DISPLAYSURF.blit(TextSur, TextRect)
 
-    drawSetting()
+    drawController()
     drawVolume()
 
     #button
 
-    image_button("data\images\volume.png",680,420,64,64)
-    image_button("data\images\bg_desert.png",680,510,64,64)
-    game_button("Start",321,300,150,83,GOLD,ORANGE, game, )
-
-    pygame.display.update()
+    image_button("data\images\volume.png",680,510,80,80)
+    
+    game_button("Start",312,160,150,83,GOLD,ORANGE, game, )
 
     
-    DISPLAYSURF.fill(WHITE)
+    # image_buttonH("data\images\bg_desert.png",680,510,64,64)
+    pygame.display.update()
+    DISPLAYSURF.fill(DARKYELLOW)
+    
+    
+    
     

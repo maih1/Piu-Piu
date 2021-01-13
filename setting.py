@@ -12,6 +12,9 @@ ninja = Ninja(0, 410, 100, 100)
 bullets = []
 obstacles = []
 
+def howTG():
+    global bg
+    drawWindow(bg)
 def game():
     global bgX,bgX2, obstacles
     gameExit = False
@@ -27,8 +30,8 @@ def game():
 
         
         #di chuyển nền cuộn 
-        bgX -= 2
-        bgX2 -= 2
+        bgX -= 1.4
+        bgX2 -= 1.4
         
         if bgX < bg.get_width() * -1:
             bgX = bg.get_width()
