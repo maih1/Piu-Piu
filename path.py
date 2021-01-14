@@ -28,7 +28,10 @@ shootLoop = 0
 score = 0
 
 DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
-pygame.display.set_caption('Ninja piu piu')
+pygame.display.set_caption('Ninja piu piu') # Tên cửa sổ game
+
+logo = pygame.image.load('data/img/ninja.png')
+pygame.display.set_icon(logo)
 
 pygame.time.set_timer(USEREVENT+2, 10000)
 
